@@ -1,2 +1,3 @@
 # localstack-helm
-Helm chart to install LocalStack and other associated components. 
+
+**NOTE: This chart is compatible with LocalStack version 0.11.0 and above.**

@@ -1,0 +1,26 @@
+# Default values for localstack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: localstack/localstack
+  tag: 0.11.0
+  pullPolicy: IfNotPresent
+
+endpoint:
+  edge:
+    port: 4566
+  web:
+    port: 8080
+
+service:
+  edge:
+    type: ClusterIP
+    port: 4566
+  web:
+    type: ClusterIP
+    port: 8080
+
+defaultRegion: eu-central-1
