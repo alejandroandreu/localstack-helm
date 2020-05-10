@@ -4,7 +4,7 @@ metadata:
   name: localstack
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: localstack-web
+    app.kubernetes.io/name: localstack
     app.kubernetes.io/version: {{ .Values.image.tag }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}

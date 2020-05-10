@@ -1,0 +1,16 @@
+{{- if eq (.Values.volume.persistenceEnabled | toString) "true" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: localstack
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .Values.volume.size }}
+  selector:
+    matchLabels:
+      name: "localstack"
+{{- end }}

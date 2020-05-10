@@ -24,6 +24,13 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
+      {{- if eq (.Values.volume.persistenceEnabled | toString) "true" }}
+      volumes:
+      - name: localstack
+        hostPath:
+          path: {{ .Values.volume.hostPath.path }}
+          type: {{ .Values.volume.hostPath.type }}
+      {{- end }}
       containers:
       - name: localstack
         image: "{{ .Values.image.repository}}:{{ default .Chart.AppVersion .Values.image.tag }}"
@@ -35,6 +42,15 @@ spec:
           value: "{{ .Values.endpoint.web.port }}"
         - name: DEFAULT_REGION
           value: "{{ .Values.defaultRegion }}"
+      {{- if eq (.Values.volume.persistenceEnabled | toString) "true" }}
+        - name: DATA_DIR
+          value: "/tmp/localstack"
+      {{- end }}
         ports:
         - containerPort: {{ .Values.endpoint.edge.port }}
         - containerPort: {{ .Values.endpoint.web.port }}
+      {{- if eq (.Values.volume.persistenceEnabled | toString) "true" }}
+        volumeMounts:
+        - name: localstack
+          mountPath: "/tmp/localstack"
+      {{- end }}
